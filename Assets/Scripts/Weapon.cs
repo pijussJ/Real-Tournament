@@ -7,17 +7,30 @@ public class Weapon : MonoBehaviour
     public int ammo;
     public int maxAmmo = 10;
     public bool isReloading;
+    public bool isAutoFire;
+    public float shootInterval = 0.5f;
+    float shootCooldown;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        // manual fire
+        if (!isAutoFire && Input.GetKeyDown(KeyCode.Mouse0))
         {
 	        Shoot();
         }
+
+        // auto fire
+        if(isAutoFire && Input.GetKey(KeyCode.Mouse0))
+        {
+            Shoot();
+        }
+
         if( Input.GetKeyDown(KeyCode.R) && ammo < maxAmmo)
         {
             Reload();
         }
+
+        shootCooldown-= Time.deltaTime;
     }
 
     void Shoot()
@@ -28,8 +41,10 @@ public class Weapon : MonoBehaviour
             Reload();
             return;
         }
+        if(shootCooldown > 0) return;
 
         ammo--;
+        shootCooldown = shootInterval;
         Instantiate(bulletPrefab,transform.position,transform.rotation);
     }
 
