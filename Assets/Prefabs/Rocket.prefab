@@ -47,9 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a3f5fcb1d6e7f4e9192f55c3c1631c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionParticles: {fileID: 4507870049406180591, guid: 351c26451498d8f4eb5d156fb1035e94,
-    type: 3}
   speed: 20
+  damage: 10
+  bounceCount: 3
+  explosionParticles: {fileID: 3995940964130297852, guid: 8dd1cdf931288394ab85b0512657d919,
+    type: 3}
+  bounceParticles: {fileID: 4507870049406180591, guid: 351c26451498d8f4eb5d156fb1035e94,
+    type: 3}
+  bulletHole: {fileID: 890622617703345062, guid: fb1f0585a92cf1541b9c955a4de2e7b8,
+    type: 3}
 --- !u!54 &1431098789441454460
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -75,7 +81,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &7862245924507731733
 GameObject:
