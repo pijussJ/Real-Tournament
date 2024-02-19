@@ -1,26 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-	[SerializeField]int health;
-	public int maxHealth = 100;
-	
-	void Start()
-	{
-		if(health == 0) health = maxHealth;
-	}
+    public int health;
+    public int maxHealth = 100;
 
-	public void Damage(int damage)
-	{
-		health -= damage;
-		if(health <= 0)
-		{
-			Die();
-		}
-	}
+    void Start()
+    {
+        if(health == 0) health = maxHealth;
+    }
 
-	public void Die()
-	{
-		Destroy(gameObject);
-	}
+
+    public void Damage(int damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
 }
