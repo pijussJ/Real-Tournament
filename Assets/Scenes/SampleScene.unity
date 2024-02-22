@@ -554,7 +554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &855435430
 Transform:
   m_ObjectHideFlags: 0
@@ -637,6 +637,8 @@ MonoBehaviour:
   maxAmmo: 10
   isAutoFire: 0
   shootInterval: 0.5
+  multiBullet: 1
+  spread: 0
   bulletPrefab: {fileID: 472793138771188833, guid: 4d4540ecbd332e04caa970c36e186fe8,
     type: 3}
 --- !u!1 &914591019
@@ -1095,7 +1097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1686717596
 Transform:
   m_ObjectHideFlags: 0
@@ -1128,6 +1130,8 @@ MonoBehaviour:
   maxAmmo: 8
   isAutoFire: 0
   shootInterval: 0.7
+  multiBullet: 1
+  spread: 0
   bulletPrefab: {fileID: 63964585624715113, guid: 95468692b803a9c43a385a5611d5bdd3,
     type: 3}
 --- !u!1 &2064212100
