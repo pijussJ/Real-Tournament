@@ -232,6 +232,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5239100585477912294, guid: f2e0b7ae4dae8cf44955bccd3512b213,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1748437652}
+    - targetCorrespondingSourceObject: {fileID: 5239100585477912294, guid: f2e0b7ae4dae8cf44955bccd3512b213,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 855435430}
     - targetCorrespondingSourceObject: {fileID: 5239100585477912294, guid: f2e0b7ae4dae8cf44955bccd3512b213,
         type: 3}
@@ -296,6 +300,12 @@ MonoBehaviour:
 --- !u!4 &8603063 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5239100585477912294, guid: f2e0b7ae4dae8cf44955bccd3512b213,
+    type: 3}
+  m_PrefabInstance: {fileID: 8603060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &8603067 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5256384803381100468, guid: f2e0b7ae4dae8cf44955bccd3512b213,
     type: 3}
   m_PrefabInstance: {fileID: 8603060}
   m_PrefabAsset: {fileID: 0}
@@ -548,6 +558,8 @@ GameObject:
   - component: {fileID: 855435433}
   - component: {fileID: 855435432}
   - component: {fileID: 855435434}
+  - component: {fileID: 855435435}
+  - component: {fileID: 855435436}
   m_Layer: 3
   m_Name: Bazooka
   m_TagString: Untagged
@@ -633,14 +645,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e9477ba36343a4db7e9fc3ac802dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: 0
-  maxAmmo: 10
-  isAutoFire: 0
-  shootInterval: 0.5
-  multiBullet: 1
-  spread: 0
   bulletPrefab: {fileID: 472793138771188833, guid: 4d4540ecbd332e04caa970c36e186fe8,
     type: 3}
+  ammo: 25
+  maxAmmo: 25
+  clipAmmo: 10
+  clipSize: 10
+  isAutoFire: 0
+  shootInterval: 0.5
+  bulletsPerShot: 1
+  spreadAngle: 10
+  onRightClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 855435435}
+        m_TargetAssemblyTypeName: BurstMode, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 855435436}
+        m_TargetAssemblyTypeName: ZoomInMode, Assembly-CSharp
+        m_MethodName: Zoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onReload:
+    m_PersistentCalls:
+      m_Calls: []
+  onShoot:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &855435435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855435429}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60c8d9f5ff9b0fe40b4d5081bb290e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 855435434}
+  isBurstFire: 0
+--- !u!114 &855435436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855435429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb73429bb7b7494fb29713cda5c83f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 8603067}
+  scope: {fileID: 1748437650}
+  zoomValue: 30
 --- !u!1 &914591019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,6 +1157,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 40
   maxHealth: 100
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onDie:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1686717595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,14 +1208,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e9477ba36343a4db7e9fc3ac802dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: 0
-  maxAmmo: 8
-  isAutoFire: 0
-  shootInterval: 0.7
-  multiBullet: 1
-  spread: 0
   bulletPrefab: {fileID: 63964585624715113, guid: 95468692b803a9c43a385a5611d5bdd3,
     type: 3}
+  ammo: 0
+  maxAmmo: 8
+  clipAmmo: 0
+  clipSize: 0
+  isAutoFire: 0
+  shootInterval: 0.7
+  bulletsPerShot: 1
+  spreadAngle: 0
+  onRightClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onReload:
+    m_PersistentCalls:
+      m_Calls: []
+  onShoot:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &1748437650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1748437652}
+  - component: {fileID: 1748437651}
+  m_Layer: 0
+  m_Name: Scope
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!212 &1748437651
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748437650}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 6f685ea0cbdd756498af75ba3b4322cc, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 10, y: 10}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1748437652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748437650}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8603063}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2064212100
 GameObject:
   m_ObjectHideFlags: 0

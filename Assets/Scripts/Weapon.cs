@@ -1,18 +1,26 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
+    public GameObject bulletPrefab;
+
     [SerializeField]int ammo;
     public int maxAmmo;
+    public int clipAmmo;
+    public int clipSize;
+
     public bool isAutoFire;
     public float shootInterval = 0.5f;
-    public int multiBullet = 1;
-    public float spread;
+    public int bulletsPerShot = 1;
+    public float spreadAngle;
+
+    public UnityEvent onRightClick;
+    public UnityEvent onReload;
+    public UnityEvent onShoot;
 
     bool isReloading;
     float shootCooldown;
-
-    public GameObject bulletPrefab;
 
     private void Start()
     {
@@ -35,31 +43,36 @@ public class Weapon : MonoBehaviour
             Shoot();
         }
 
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            onRightClick.Invoke();
+        }
+
         if(Input.GetKeyDown(KeyCode.R) && ammo < maxAmmo)
         {
             Reload();
         }
     }
 
-    void Shoot()
+    public void Shoot()
     {
         if (isReloading) return;
         if (shootCooldown > 0) return;
-        //if (ammo <= 1)
-        if (ammo <= multiBullet)
+        if (clipAmmo <= 1)
         {
             Reload();
         }
 
+        onShoot.Invoke();
         shootCooldown = shootInterval;
 
-        for (int i = 0; i < multiBullet; i++)
+        for (int i = 0; i < bulletsPerShot; i++)
         {
-            if (ammo > 0)
+            if (clipAmmo > 0)
             {
-                ammo--;
-                var rot = transform.rotation * Quaternion.Euler(Random.Range(-spread, spread), Random.Range(-spread, spread), 0);
-                Instantiate(bulletPrefab, transform.position, rot);
+                clipAmmo--;         
+                var bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+                bullet.transform.eulerAngles += Vector3.one * Random.Range(-spreadAngle, spreadAngle);
             }
         }
     }
@@ -69,8 +82,12 @@ public class Weapon : MonoBehaviour
         if (isReloading) return;
 
         isReloading = true;
+        onReload.Invoke();
         await new WaitForSeconds(2);
+        //ammo = maxAmmo;
+        var ammoToReload = Mathf.Min(ammo, clipSize);
+        ammo -= ammoToReload;
+        clipAmmo += ammoToReload;
         isReloading = false;
-        ammo = maxAmmo;
     }
 }
