@@ -1,14 +1,26 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
 	public GameObject bulletPrefab;
+
 	public int ammo;
 	public int maxAmmo = 10;
+	public int clipAmmo;
+	public int clipSize;
+
 	public bool isReloading;
 	public bool isAutoFire;
 	public float fireInterval = 0.5f;
 	public float fireCooldown;
+	public int multiMode = 1;
+
+	public float spread;
+
+	public UnityEvent onRightClick;
+	public UnityEvent onShoot;
+	public UnityEvent onReload;
 
 	void Update()
 	{
@@ -28,24 +40,40 @@ public class Weapon : MonoBehaviour
 		{
 			Reload();
 		}
+		if (Input.GetKeyDown(KeyCode.Mouse1))
+		{
+			onRightClick.Invoke();
+		}
+
+        
 
 		fireCooldown -= Time.deltaTime;
+
+
 	}
 
-	void Shoot()
+	public void Shoot()
 	{
 		if(isReloading) return;
-		if (ammo <= 0)
+		if (clipAmmo <= multiMode)
 		{
 			Reload();
 			return;
 		}
 		if(fireCooldown > 0) return;
-
-
-		ammo--;
 		fireCooldown = fireInterval;
-		Instantiate(bulletPrefab,transform.position,transform.rotation);
+		clipAmmo--;
+		onShoot.Invoke();
+
+
+		for (int i = 0; i < multiMode; i++)
+		{
+			if (clipAmmo > 0)
+			{
+				var rot = transform.rotation * Quaternion.Euler(Random.Range(-spread, spread), Random.Range(-spread, spread), 0);
+				Instantiate(bulletPrefab, transform.position, rot);
+			}
+		}
 	}
 
 
@@ -54,9 +82,14 @@ public class Weapon : MonoBehaviour
 		if (isReloading) return;
 		isReloading = true;
 
+		onReload.Invoke();
 		await new WaitForSeconds(2f);
 
-		ammo = maxAmmo;
+		//ammo = maxAmmo;
+		var ammoToReload = Mathf.Min(ammo, clipSize);
+		ammo -= ammoToReload;
+		clipAmmo += ammoToReload;
+
 		isReloading = false;
 		print ("Reloaded");
 	}

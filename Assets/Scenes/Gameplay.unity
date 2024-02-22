@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -819,6 +819,7 @@ GameObject:
   - component: {fileID: 1686232864}
   - component: {fileID: 1686232863}
   - component: {fileID: 1686232865}
+  - component: {fileID: 1686232866}
   m_Layer: 3
   m_Name: Bazooka
   m_TagString: Untagged
@@ -901,16 +902,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 1686232860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aae27467b5d641ebb4f9b756500aa61, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b82e67bdefb74908b25aef41ee0f0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8112034479082718710, guid: 883ad39c11297447bb9c7e3eddee323b,
+  bulletPrefab: {fileID: 8112034479082718710, guid: 1df76f76a511c37468037ae3de58946a,
     type: 3}
-  ammo: 50
-  maxAmmo: 50
+  ammo: 25
+  maxAmmo: 25
+  clipAmmo: 10
+  clipSize: 10
   isReloading: 0
   isAutoFire: 1
-  shootInterval: 0.1
+  fireInterval: 0.1
+  fireCooldown: 0.1
+  multiMode: 1
+  spread: 5
+  onRightClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1686232866}
+        m_TargetAssemblyTypeName: BurstMod, Assembly-CSharp
+        m_MethodName: BurstFire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1686232866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686232860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5c1640ad55ffa4eb791a8d4ce12faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1813641388 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5242010300582068122, guid: f2e0b7ae4dae8cf44955bccd3512b213,
