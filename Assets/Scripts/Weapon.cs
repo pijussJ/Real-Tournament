@@ -55,15 +55,14 @@ public class Weapon : MonoBehaviour
 	public void Shoot()
 	{
 		if(isReloading) return;
-		if (clipAmmo <= multiMode)
+		if (clipAmmo <= 0)
 		{
 			Reload();
 			return;
 		}
 		if(fireCooldown > 0) return;
-		fireCooldown = fireInterval;
 		clipAmmo--;
-		onShoot.Invoke();
+		fireCooldown = fireInterval;
 
 
 		for (int i = 0; i < multiMode; i++)
@@ -74,6 +73,7 @@ public class Weapon : MonoBehaviour
 				Instantiate(bulletPrefab, transform.position, rot);
 			}
 		}
+		onShoot.Invoke();
 	}
 
 
