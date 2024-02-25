@@ -14,8 +14,11 @@ public class Player : MonoBehaviour
     public Weapon weapon;
     private void Start()
     {
+        UpdateUI();
         weapon.onShoot.AddListener(UpdateUI);
         health.onDamage.AddListener(UpdateUI);
+        health.onDie.AddListener(Respawn);
+
     }
     void UpdateUI()
     {
@@ -28,5 +31,11 @@ public class Player : MonoBehaviour
         {
             health.Damage(10);
         }
+    }
+    void Respawn()
+    {
+        health.health = health.maxHealth;
+        transform.position = Vector3.zero;
+        UpdateUI();
     }
 }
