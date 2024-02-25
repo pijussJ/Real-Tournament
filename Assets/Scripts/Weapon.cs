@@ -5,7 +5,7 @@ public class Weapon : MonoBehaviour
 {
     public GameObject bulletPrefab;
 
-    [SerializeField]int ammo;
+    public int ammo;
     public int maxAmmo;
     public int clipAmmo;
     public int clipSize;
@@ -63,7 +63,6 @@ public class Weapon : MonoBehaviour
             Reload();
         }
 
-        onShoot.Invoke();
         shootCooldown = shootInterval;
 
         for (int i = 0; i < bulletsPerShot; i++)
@@ -75,6 +74,8 @@ public class Weapon : MonoBehaviour
                 bullet.transform.eulerAngles += Vector3.one * Random.Range(-spreadAngle, spreadAngle);
             }
         }
+
+        onShoot.Invoke();
     }
 
     async void Reload()
@@ -82,12 +83,12 @@ public class Weapon : MonoBehaviour
         if (isReloading) return;
 
         isReloading = true;
-        onReload.Invoke();
         await new WaitForSeconds(2);
         //ammo = maxAmmo;
         var ammoToReload = Mathf.Min(ammo, clipSize);
         ammo -= ammoToReload;
         clipAmmo += ammoToReload;
         isReloading = false;
+        onReload.Invoke();
     }
 }
