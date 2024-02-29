@@ -23,18 +23,18 @@ public class PlayerDamage : MonoBehaviour
         health.onDamage.AddListener(UpdateCamera);
         health.onDie.AddListener(ResetCamera);
 
-        if (globalVolume.TryGet<Vignette>(out Vignette vignette))
+        if (globalVolume.TryGet(out Vignette vignette))
         {
             vig = vignette;
             //vig.color.value = vignetteColor;
             vig.active = false;
         }
-        if (globalVolume.TryGet<ChromaticAberration>(out ChromaticAberration aberration))
+        if (globalVolume.TryGet(out ChromaticAberration aberration))
         {
             chr = aberration;
             chr.active = false;
         }
-        if (globalVolume.TryGet<LiftGammaGain>(out LiftGammaGain liftgammagain))
+        if (globalVolume.TryGet(out LiftGammaGain liftgammagain))
         {
             lgg = liftgammagain;
             lgg.active = false;
@@ -45,11 +45,6 @@ public class PlayerDamage : MonoBehaviour
     {
         if ((float)health.health / health.maxHealth <= lowHpLimit)
         {
-            /*if (globalVolume.TryGet<Vignette>(out Vignette vig))
-            {
-                vig.active = true;
-                vig.intensity.value = lowHpLimit - (float)health.health / health.maxHealth;
-            }*/
             vig.active = true;
             vig.intensity.value = (lowHpLimit - (float)health.health / health.maxHealth) / lowHpLimit * maxVignetteValue;
             chr.active = true;

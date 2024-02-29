@@ -14,12 +14,13 @@ public class Weapon : MonoBehaviour
     public float shootInterval = 0.5f;
     public int bulletsPerShot = 1;
     public float spreadAngle;
+    public float reloadTime = 2f;
 
     public UnityEvent onRightClick;
     public UnityEvent onReload;
     public UnityEvent onShoot;
 
-    bool isReloading;
+    public bool isReloading;
     float shootCooldown;
 
     private void Start()
@@ -30,28 +31,6 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         shootCooldown -= Time.deltaTime;
-        
-        // Manual fire
-        if (!isAutoFire && Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Shoot();
-        }
-
-        // Auto fire
-        if(isAutoFire && Input.GetKey(KeyCode.Mouse0))
-        {
-            Shoot();
-        }
-
-        if(Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            onRightClick.Invoke();
-        }
-
-        if(Input.GetKeyDown(KeyCode.R) && ammo < maxAmmo)
-        {
-            Reload();
-        }
     }
 
     public void Shoot()
@@ -78,17 +57,19 @@ public class Weapon : MonoBehaviour
         onShoot.Invoke();
     }
 
-    async void Reload()
+    public async void Reload()
     {
         if (isReloading) return;
 
         isReloading = true;
-        await new WaitForSeconds(2);
+
+        onReload.Invoke();
+
+        await new WaitForSeconds(reloadTime);
         //ammo = maxAmmo;
         var ammoToReload = Mathf.Min(ammo, clipSize);
         ammo -= ammoToReload;
         clipAmmo += ammoToReload;
         isReloading = false;
-        onReload.Invoke();
     }
 }
