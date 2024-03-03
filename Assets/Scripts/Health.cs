@@ -13,6 +13,8 @@ public class Health : MonoBehaviour
     public UnityEvent onDamage;
     public UnityEvent onDie;
 
+    public AudioClip damageSFX;
+    public AudioClip dieSFX;
     private void Start()
     {
         if (health == 0) health = maxHealth;
@@ -22,6 +24,7 @@ public class Health : MonoBehaviour
     {
         health -= damage;
         onDamage.Invoke();
+        AudioSystem.Play(damageSFX);
         if (damageEffect != null) Instantiate(damageEffect, transform.position, Quaternion.identity);
         if(health <= 0)
         {
@@ -35,5 +38,6 @@ public class Health : MonoBehaviour
         onDie.Invoke();
         if (shouldDestroy) Destroy(gameObject);
         if(deathEffect != null) Instantiate(deathEffect, transform.position, Quaternion.identity);
+        AudioSystem.Play(dieSFX);
     }
 }

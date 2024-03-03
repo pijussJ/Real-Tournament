@@ -148,6 +148,8 @@ MonoBehaviour:
   onDie:
     m_PersistentCalls:
       m_Calls: []
+  damageSFX: {fileID: 8300000, guid: 754e8d0bf3b5f58498091cd20fbe420e, type: 3}
+  dieSFX: {fileID: 8300000, guid: 1f905b9258947f54390b3718c0466608, type: 3}
 --- !u!114 &2445155829217095588
 MonoBehaviour:
   m_ObjectHideFlags: 0

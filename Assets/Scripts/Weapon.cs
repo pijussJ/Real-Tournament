@@ -23,6 +23,9 @@ public class Weapon : MonoBehaviour
     public bool isReloading;
     float shootCooldown;
 
+    public AudioClip shootSound;
+    public AudioClip reloadSound;
+
     private void Start()
     {
         ammo = maxAmmo;
@@ -51,6 +54,7 @@ public class Weapon : MonoBehaviour
                 clipAmmo--;         
                 var bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
                 bullet.transform.eulerAngles += Vector3.one * Random.Range(-spreadAngle, spreadAngle);
+                AudioSystem.Play(shootSound);
             }
         }
 
@@ -64,6 +68,7 @@ public class Weapon : MonoBehaviour
         isReloading = true;
 
         onReload.Invoke();
+        AudioSystem.Play(reloadSound);
 
         await new WaitForSeconds(reloadTime);
         //ammo = maxAmmo;
